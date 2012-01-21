@@ -1,0 +1,7 @@
+** Must have the following installed: **
+
+grails install-plugin grails-ui
+grails install-plugin quartz
+grails install-plugin google-visualization
+
+Then refresh and build in STS

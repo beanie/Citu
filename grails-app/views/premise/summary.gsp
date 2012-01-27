@@ -157,6 +157,8 @@
 				                        
 				                            <td>${fieldValue(bean: premiseInstance, field: "totalElecUsage")}kWh</td>
 				                            
+				                            <td>&pound;${fieldValue(bean: premiseInstance, field: "totalElecCost")}</td>
+				                            
 				                            <td>${fieldValue(bean: premiseInstance, field: "totalHeatUsage")}kWh</td>
 				                        
 				                            <td>&pound;${fieldValue(bean: premiseInstance, field: "totalHeatCost")}</td>

@@ -3,6 +3,11 @@ import citugreen.*;
 class BootStrap {
 
     def init = { servletContext ->
+		
+		// create some tarrifs
+		Tarrifs initial = new Tarrifs(coldWaterTarrif:0.003339, hotWaterTarrif:0.006249, greyWaterTarrif:0.001365, elecTarrif:0.108, heatTarrif:0.1163).save()
+		
+	
 		// create some dummy users
 		User phil = new User(userName:'psellick', firstName:'Phil', lastName:'Sellick', contactEmail:'sonic@sellick.org', vmUserId:'45465654').save()
 		User ben = new User(userName:'bhanson', firstName:'Ben', lastName:'Hanson', contactEmail:'ben@chilling.co.uk', vmUserId:'12154852').save()

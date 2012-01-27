@@ -6,6 +6,8 @@ class Premise {
 	String addressLine1
 	String addressLine2
 	String postCode
+	int rooms
+	int squareArea
 	
 	User user
 	
@@ -25,9 +27,7 @@ class Premise {
 		BillUtils.calcTotal(this.heatReadings.heatReading)
 	}
 	
-	Float getTotalHeatCost() {
-		BillUtils.calcTotal(this.heatReadings.heatCost)
-	}
+
 	
 	Float getTotalColdWater() {
 		BillUtils.calcTotal(this.waterReadings.coldWater)
@@ -41,11 +41,26 @@ class Premise {
 		BillUtils.calcTotal(this.waterReadings.greyWater)
 	}
 	
+	
+	Float getTotalHeatCost() {
+		def tmp = BillUtils.calcTotalHeatCost(this.heatReadings.heatReading)
+		
+	}
+	
+	Float getTotalElecCost() {
+		BillUtils.calcTotal(this.elecReadings.elecReading)
+	}
+	
+	Float getAveGreyWater() {
+		BillUtils.aveTotalbyRoom(this.waterReadings.greyWater, this.rooms)
+	}
+	
+	
 	String toString() {
 		return flatNo
 	}
 	
-	static transients = ['totalHeatUsage','totalElecUsage','totalHeatCost', 'totalHotWater','totalColdWater','totalGreyWater']
+	static transients = ['totalHeatUsage','totalElecUsage','totalElecCost', 'totalHeatCost','totalHotWater','totalColdWater','totalGreyWater', 'aveGreyWater']
 
     static constraints = {
 		addressLine1(blank:false, nullable: false)

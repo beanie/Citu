@@ -26,15 +26,32 @@ class BillUtils {
 		def tmpCost = citugreen.Tarrifs.get(1).elecTarrif
 		return (tmp*tmpCost)
 	}
+	
+	static Float calcTotalGreyWaterCost(ArrayList costs){
+		def tmp = calcTotal(costs)
+		println (tmp)
+		def tmpCost = citugreen.Tarrifs.get(1).greyWaterTarrif
+		return (tmp*tmpCost)
+	}
+	
+	static Float calcTotalHotWaterCost(ArrayList costs){
+		def tmp = calcTotal(costs)
+		println (tmp)
+		def tmpCost = citugreen.Tarrifs.get(1).hotWaterTarrif
+		return (tmp*tmpCost)
+	}
+	
+	
+	static Float calcTotalColdWaterCost(ArrayList costs){
+		def tmp = calcTotal(costs)
+		println (tmp)
+		def tmpCost = citugreen.Tarrifs.get(1).coldWaterTarrif
+		return (tmp*tmpCost)
+	}
 		
 	
-	static Float aveTotalbyRoom(ArrayList costs, int rooms) {
-		def tmpFloat = 0
-		for (i in costs) {
-			if (i != null) {
-				tmpFloat += i
-			}
-		}
+	static Float aveColdTotalbyRoom(ArrayList costs, int rooms) {
+		def tmpFloat = calcTotalColdWaterCost(costs)
 		def tmpAve = tmpFloat/rooms
 		return tmpAve
 	}

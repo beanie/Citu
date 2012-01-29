@@ -51,8 +51,8 @@ class Premise {
 		BillUtils.calcTotal(this.elecReadings.elecReading)
 	}
 	
-	Float getAveGreyWater() {
-		BillUtils.aveTotalbyRoom(this.waterReadings.greyWater, this.rooms)
+	Float getAveColdWater() {
+		BillUtils.aveColdTotalbyRoom(this.waterReadings.coldWater, this.rooms)
 	}
 	
 	

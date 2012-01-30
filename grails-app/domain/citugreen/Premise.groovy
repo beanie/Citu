@@ -27,8 +27,6 @@ class Premise {
 		BillUtils.calcTotal(this.heatReadings.heatReading)
 	}
 	
-
-	
 	Float getTotalColdWater() {
 		BillUtils.calcTotal(this.waterReadings.coldWater)
 	}
@@ -60,7 +58,7 @@ class Premise {
 		return flatNo
 	}
 	
-	static transients = ['totalHeatUsage','totalElecUsage','totalElecCost', 'totalHeatCost','totalHotWater','totalColdWater','totalGreyWater', 'aveGreyWater']
+	static transients = ['totalHeatUsage','totalElecUsage','totalElecCost', 'totalHeatCost','totalHotWater','totalColdWater','totalGreyWater', 'aveGreyWater', 'aveColdWater']
 
     static constraints = {
 		addressLine1(blank:false, nullable: false)

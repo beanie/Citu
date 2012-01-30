@@ -4,3 +4,4 @@
 .classpath
 application.properties
 !.gitignore
+/target-eclipse

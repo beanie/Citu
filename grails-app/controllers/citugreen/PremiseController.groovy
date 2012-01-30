@@ -7,7 +7,13 @@ import org.codehaus.groovy.grails.commons.ConfigurationHolder
 
 class PremiseController {
 
+	EndOfMonthService endOfMonthService
+	
     def scaffold = true
+	
+	def dateFoo = {
+		endOfMonthService.processMonthEnd()
+	}
 	
 	/*
 	* Property Summary call - 3 request params

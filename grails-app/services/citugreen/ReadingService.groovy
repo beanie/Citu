@@ -56,8 +56,6 @@ class ReadingService {
 			}
 		}
 
-		//def fileNames = ["c:\\files\\10-2011B.CSV"]
-		//fileNames.each {file -> processHeatXML(file) }
 		log.info("Heat Readings Parsed OK")
 	}
 

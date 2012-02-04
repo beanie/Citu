@@ -97,4 +97,40 @@ class PremiseController {
 		}
 	
 	}
+	
+	def HTML5summary = {
+		
+		def premiseInstance
+		
+		if (params.flatNo) {
+			premiseInstance = Premise.findByFlatNo(params.flatNo)
+		} else if (params.macAddress) {
+			def stbInstance = SetTopBox.findByMacAddress(params.macAddress)
+			premiseInstance = stbInstance.premise
+		} else {
+			render("invalid premise identifier")
+		}
+		
+		if (params.daysBack) {
+			def now = new Date()
+			def daysBack = now - params.int('daysBack')
+			premiseInstance.elecReadings = ElecReading.findAllByPremiseAndFileDateBetween(premiseInstance, daysBack, now, [sort:"fileDate", order:"desc"])
+			premiseInstance.waterReadings = WaterReading.findAllByPremiseAndFileDateBetween(premiseInstance, daysBack, now, [sort:"fileDate", order:"desc"])
+			premiseInstance.heatReadings = HeatReading.findAllByPremiseAndDateCreatedBetween(premiseInstance, daysBack, now, [sort:"dateCreated", order:"desc"])
+		}
+			
+		if (!premiseInstance) {
+			flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'premise.label', default: 'Premise'), params.id])}"
+			redirect(action: "list")
+		}
+		else {
+
+			// render premiseInstance as JSON
+			[premiseInstance: premiseInstance]
+		}
+	
+	}
+	
+	
+	
 }

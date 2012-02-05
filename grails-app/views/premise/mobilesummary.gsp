@@ -14,26 +14,31 @@
             <g:if test="${flash.message}">
             <div class="message">${flash.message}</div>
             </g:if>
-
-            <g:message code="premise.user.label" default="Name" />
-            <g:link controller="user" action="show" id="${premiseInstance?.user?.id}">${premiseInstance?.user?.firstName?.encodeAsHTML()} ${premiseInstance?.user?.lastName?.encodeAsHTML()}</g:link>
-			<g:message code="premise.user.label" default="Username" />
-			${premiseInstance?.user?.userName?.encodeAsHTML()} - ${premiseInstance?.user?.contactEmail?.encodeAsHTML()}
-			<g:message code="premise.flatNo.label" default="Address:" />
-			
-			<p>
 </section>
-			${fieldValue(bean: premiseInstance, field: "postCode")}
 
-			Totals:
-			${fieldValue(bean: premiseInstance, field: "totalElecUsage")}kWh
-			&pound;${fieldValue(bean: premiseInstance, field: "totalElecCost")}
-			${fieldValue(bean: premiseInstance, field: "totalHeatUsage")}kWh
-			&pound;${fieldValue(bean: premiseInstance, field: "totalHeatCost")}
-			${fieldValue(bean: premiseInstance, field: "totalColdWater")}L
-			${fieldValue(bean: premiseInstance, field: "totalHotWater")}L
-			${fieldValue(bean: premiseInstance, field: "totalGreyWater")}L
+<section>
+<table>
+<tr>
 
+			<td valign="top" style="text-align: left;" class="value" colspan="5">
+			Electric Usage ${fieldValue(bean: premiseInstance, field: "totalElecUsage")}kWh
+			<td>
+			Electric Costs &pound;${fieldValue(bean: premiseInstance, field: "totalElecCost")}
+			<td>
+			Heating Usage ${fieldValue(bean: premiseInstance, field: "totalHeatUsage")}kWh
+			<td>
+			Heating Cost &pound;${fieldValue(bean: premiseInstance, field: "totalHeatCost")}
+			<td>
+			Cold Water ${fieldValue(bean: premiseInstance, field: "totalColdWater")}L
+			<td>
+			Hot Water ${fieldValue(bean: premiseInstance, field: "totalHotWater")}L
+			<td>
+			Grey Water ${fieldValue(bean: premiseInstance, field: "totalGreyWater")}L
+	</tr>		
+</table>
+</section>
+
+<section>
 			<%
 			def elecGraphData = []
 			for (i in premiseInstance.elecReadings) {
@@ -70,6 +75,8 @@
 			</tr>
 			
 			</table>	
+</section>
+
 			
 	</body>
 </html>

@@ -98,7 +98,7 @@ class PremiseController {
 	
 	}
 	
-	def HTML5summary = {
+	def mobilesummary = {
 		
 		def premiseInstance
 		

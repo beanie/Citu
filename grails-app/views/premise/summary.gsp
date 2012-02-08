@@ -181,7 +181,7 @@
                             
                             <td valign="top" class="yui-skin-sam" colspan="2" align="center">
 								
-								<%
+								<% 
 								def elecGraphData = []
 								for (i in premiseInstance.elecReadings) {
 									def dataObj = [[DateFormat.getDateInstance(DateFormat.SHORT).format(i.fileDate), i.elecReading]]
@@ -200,7 +200,7 @@
 								 %>								
 								<gui:tabView>
 								    <gui:tab label="Electricity Readings" active="true">
-								        <gvisualization:pieCoreChart elementId="elecGraph" title="My Daily Electricity Usage" width="${450}" height="${300}" columns="[['string', 'Usage'], ['number', 'Electricity (kWh)']]" data="${elecGraphData}" />
+								        <gvisualization:barCoreChart elementId="elecGraph" title="My Daily Electricity Usage" width="${450}" height="${300}" columns="[['string', 'Usage'], ['number', 'Electricity (kWh)']]" data="${elecGraphData}" />
 										<div id="elecGraph"></div>
 								    </gui:tab>
 								    <gui:tab label="Heat Readings">
@@ -208,7 +208,7 @@
 										<div id="heatGraph"></div>
 								    </gui:tab>
 								    <gui:tab label="Water Readings">
-								        <gvisualization:lineCoreChart elementId="waterGraph" title="My Daily Water Usage" width="${450}" height="${300}" columns="[['string', 'Usage'], ['number', 'Cold Water (m3)'], ['number', 'Hot Water (m3)'], ['number', 'Grey Water (m3)']]" data="${waterGraphData}" />
+								        <gvisualization:barCoreChart elementId="waterGraph" title="My Daily Water Usage" width="${450}" height="${300}" columns="[['string', 'Usage'], ['number', 'Cold Water (m3)'], ['number', 'Hot Water (m3)'], ['number', 'Grey Water (m3)']]" data="${waterGraphData}" />
 										<div id="waterGraph"></div>
 								    </gui:tab>
 								</gui:tabView>

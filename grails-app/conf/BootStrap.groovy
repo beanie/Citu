@@ -39,6 +39,24 @@ class BootStrap {
 			SetTopBox stb9 = new SetTopBox(macAddress:'WR:BF:T5:00:EE', TSMid:'6345345', premise:neilsFlat).save()
 		}
 		
+		// create dummy data for Flat 215
+		if (!ElecReading.count()) {
+			def now = (new Date() - 100)
+			
+			Premise p = Premise.findByFlatNo("215")
+			
+			def random = new Random()
+			100.times {
+				now = (now + 1)
+				24.times{
+					def next = random.nextInt(50) + 3
+					ElecReading tmpReading = new ElecReading(elecReading:next, fileDate:now, premise:p).save()
+					WaterReading tmpWater = new WaterReading(fileDate:now, coldWater:random.nextInt(30), hotWater:random.nextInt(30) + 2, greyWater:random.nextInt(30) + 1, premise:p).save()
+					HeatReading tmpHeat = new HeatReading(heatReading:random.nextInt(60), heatCost:0, premise:p).save()
+				}
+			}
+		}
+		
     }
     def destroy = {
     }

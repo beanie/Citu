@@ -11,9 +11,40 @@ class PremiseController {
 	
     def scaffold = true
 	
+	/*
 	def dateFoo = {
 		endOfMonthService.processMonthEnd()
 	}
+	*/
+	
+	def processView = {
+		def Premise premiseInstance = BillUtils.getPremise(params)
+		
+		def now = Calendar.getInstance()
+		def srcYear
+		def srcMonth
+		def srcDay
+		
+		if (params.day && params.month && params.year) {
+			log.info("day view")
+			now.set(params.int("year"), params.int("month")-1, params.int("day"))
+		} else if (params.month && params.year) {
+			log.info("month view")
+			now.set(params.int("year"), params.int("month")-1, 1)
+		} else if (params.year) {
+			log.info("year view")
+			now.set(params.int("year"), 0, 1)
+		} else if (params.daysBack ){
+			log.info(params.daysBack +" days back view")
+			def nowDate = new Date() - params.int("daysBack")
+			now.setTime(nowDate)
+		} else {
+			render("Invalid date params sent")
+		}
+		
+		// TODO add business logic to pull out view
+		log.info("**** Processing End Of Month on "+ new SimpleDateFormat("E yyyy.MM.dd 'at' hh:mm:ss a zzz").format(now.getTime()))
+	}	
 	
 	/*
 	* Property Summary call - 3 request params
@@ -25,16 +56,8 @@ class PremiseController {
 	def readingSummary = {
 		
 		def errorCode = 0
-		def premiseInstance
 		
-		if (params.flatNo) {
-			premiseInstance = Premise.findByFlatNo(params.flatNo)
-		} else if (params.macAddress) {
-			def stbInstance = SetTopBox.findByMacAddress(params.macAddress)
-			premiseInstance = stbInstance.premise
-		} else {
-			render("invalid premise identifier")
-		}
+		def Premise premiseInstance = BillUtils.getPremise(params)
 		
 		def now = new Date()
 		def daysBack = now - params.int('daysBack')
@@ -56,7 +79,8 @@ class PremiseController {
 		}
 		
 		if (errorCode == 0) {
-			log.info(params.viewType +" summary with "+ tmpReadings.size() +" records "+ ConfigurationHolder.getConfig().getProperty('COLD_WATER_COST'))
+			
+			log.info(params.viewType +" summary with "+ tmpReadings.size() +" records")
 						
 			render sum as JSON
 		}
@@ -67,16 +91,7 @@ class PremiseController {
 	 */
 	def summary = {
 		
-		def premiseInstance
-		
-		if (params.flatNo) {
-			premiseInstance = Premise.findByFlatNo(params.flatNo)
-		} else if (params.macAddress) {
-			def stbInstance = SetTopBox.findByMacAddress(params.macAddress)
-			premiseInstance = stbInstance.premise
-		} else {
-			render("invalid premise identifier")
-		}
+		def Premise premiseInstance = BillUtils.getPremise(params)
 		
 		if (params.daysBack) {
 			def now = new Date()
@@ -89,10 +104,8 @@ class PremiseController {
 		if (!premiseInstance) {
 			flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'premise.label', default: 'Premise'), params.id])}"
 			redirect(action: "list")
-		}
-		else {
-
-			// render premiseInstance as JSON
+		} else {
+			log.info(premiseInstance)
 			[premiseInstance: premiseInstance]
 		}
 	
@@ -100,16 +113,7 @@ class PremiseController {
 	
 	def mobilesummary = {
 		
-		def premiseInstance
-		
-		if (params.flatNo) {
-			premiseInstance = Premise.findByFlatNo(params.flatNo)
-		} else if (params.macAddress) {
-			def stbInstance = SetTopBox.findByMacAddress(params.macAddress)
-			premiseInstance = stbInstance.premise
-		} else {
-			render("invalid premise identifier")
-		}
+		def Premise premiseInstance = BillUtils.getPremise(params)
 		
 		if (params.daysBack) {
 			def now = new Date()

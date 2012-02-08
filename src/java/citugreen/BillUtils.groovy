@@ -3,6 +3,18 @@ package citugreen
 
 class BillUtils {
 
+	static Premise getPremise(Map params) {
+		Premise premiseInstance
+		if (params.flatNo) {
+			premiseInstance = Premise.findByFlatNo(params.flatNo)
+		} else if (params.macAddress) {
+			def stbInstance = SetTopBox.findByMacAddress(params.macAddress)
+			premiseInstance = stbInstance.premise
+		} else {
+			return premiseInstance
+		}
+	}
+	
 	static Float calcTotal(ArrayList costs) {
 		def tmpFloat = 0
 		for (i in costs) {
